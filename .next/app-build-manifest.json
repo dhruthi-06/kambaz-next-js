@@ -1,0 +1,44 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/layout.js"
+    ],
+    "/(Kambaz)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/layout.js"
+    ],
+    "/(Kambaz)/Dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Dashboard/page.js"
+    ],
+    "/(Kambaz)/Courses/[cid]/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Courses/[cid]/layout.js"
+    ],
+    "/(Kambaz)/Courses/[cid]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Courses/[cid]/page.js"
+    ],
+    "/(Kambaz)/Courses/[cid]/Home/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Courses/[cid]/Home/page.js"
+    ],
+    "/(Kambaz)/Courses/[cid]/Assignments/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Courses/[cid]/Assignments/page.js"
+    ],
+    "/(Kambaz)/Courses/[cid]/Assignments/[aid]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.js"
+    ]
+  }
+}

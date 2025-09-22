@@ -1,0 +1,7 @@
+{
+  "/(Kambaz)/Dashboard/page": "app/(Kambaz)/Dashboard/page.js",
+  "/(Kambaz)/Courses/[cid]/page": "app/(Kambaz)/Courses/[cid]/page.js",
+  "/(Kambaz)/Courses/[cid]/Home/page": "app/(Kambaz)/Courses/[cid]/Home/page.js",
+  "/(Kambaz)/Courses/[cid]/Assignments/page": "app/(Kambaz)/Courses/[cid]/Assignments/page.js",
+  "/(Kambaz)/Courses/[cid]/Assignments/[aid]/page": "app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.js"
+}

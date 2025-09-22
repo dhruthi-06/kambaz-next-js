@@ -1,0 +1,37 @@
+{
+  "name": "kanbaz-node-server-app1",
+  "version": "1.0.0",
+  "description": "Node JS",
+  "keywords": [
+    "abcd"
+  ],
+  "homepage": "https://github.com/dhruthi.06/my-app#readme",
+  "bugs": {
+    "url": "https://github.com/dhruthi.06/my-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhruthi.06/my-app.git"
+  },
+  "license": "ISC",
+  "author": "dhruthi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "console.log('hello world');"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "next": "^15.5.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.1",
+    "@types/react": "^19.1.12",
+    "typescript": "5.9.2"
+  }
+}
