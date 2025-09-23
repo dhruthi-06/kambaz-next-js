@@ -1,44 +1,162 @@
 {
   "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/_not-found/page-bc858a492cd2020e.js"
+    ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/layout-4c3f02bad30e1487.js"
+    ],
+    "/Labs/layout": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/Labs/layout-0994b6b515459333.js"
+    ],
+    "/Labs/Lab2/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/Labs/Lab2/page-4c3f02bad30e1487.js"
+    ],
+    "/Labs/Lab1/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/Labs/Lab1/page-8950f18b5bd9a954.js"
     ],
     "/(Kambaz)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/layout.js"
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/layout-0994b6b515459333.js"
+    ],
+    "/(Kambaz)/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/page-4c3f02bad30e1487.js"
     ],
     "/(Kambaz)/Dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Dashboard/page.js"
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/356-5cad24532f4c0e5d.js",
+      "static/chunks/app/(Kambaz)/Dashboard/page-c949ebf56fa5bb43.js"
     ],
-    "/(Kambaz)/Courses/[cid]/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Courses/[cid]/layout.js"
+    "/Labs/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/Labs/page-b2184061b2741a81.js"
     ],
-    "/(Kambaz)/Courses/[cid]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Courses/[cid]/page.js"
+    "/Labs/Lab3/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/Labs/Lab3/page-4c3f02bad30e1487.js"
     ],
-    "/(Kambaz)/Courses/[cid]/Home/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Courses/[cid]/Home/page.js"
+    "/(Kambaz)/Account/layout": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Account/layout-0994b6b515459333.js"
     ],
-    "/(Kambaz)/Courses/[cid]/Assignments/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Courses/[cid]/Assignments/page.js"
+    "/(Kambaz)/Account/Profile/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Account/Profile/page-0994b6b515459333.js"
     ],
-    "/(Kambaz)/Courses/[cid]/Assignments/[aid]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.js"
+    "/(Kambaz)/Account/Signup/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Account/Signup/page-0994b6b515459333.js"
+    ],
+    "/(Kambaz)/Account/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/Account/page-4c3f02bad30e1487.js"
+    ],
+    "/(Kambaz)/Courses/[id]/layout": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/layout-0994b6b515459333.js"
+    ],
+    "/(Kambaz)/Courses/[id]/Modules/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/Modules/page-4c3f02bad30e1487.js"
+    ],
+    "/(Kambaz)/Courses/[id]/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/page-4c3f02bad30e1487.js"
+    ],
+    "/(Kambaz)/Courses/[id]/Assignments/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/Assignments/page-0994b6b515459333.js"
+    ],
+    "/(Kambaz)/Account/Signin/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/(Kambaz)/Account/Signin/page-0994b6b515459333.js"
+    ],
+    "/(Kambaz)/Courses/[id]/Home/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/Home/page-4c3f02bad30e1487.js"
+    ],
+    "/(Kambaz)/Courses/[id]/Assignments/[aid]/page": [
+      "static/chunks/webpack-aec87d84c0ed8017.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-e3bf15caf1f1e0f9.js",
+      "static/chunks/main-app-a30e0161e0d3ba6b.js",
+      "static/chunks/app/(Kambaz)/Courses/[id]/Assignments/[aid]/page-4c3f02bad30e1487.js"
     ]
   }
 }
