@@ -3,11 +3,11 @@ import CourseNavigation from "./Navigation";
 
 type LayoutPropsForCourse = {
   children: ReactNode;
-  params: Promise<{ cid: string }>; // match Next.js expected type
+  params: Promise<{ cid: string }>; 
 };
 
 export default async function CoursesLayout({ children, params }: LayoutPropsForCourse) {
-  const { cid } = await params; // await it
+  const { cid } = await params;
   return (
     <div id="wd-courses">
       <h2>Courses {cid}</h2>

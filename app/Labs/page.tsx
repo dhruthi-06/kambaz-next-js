@@ -13,7 +13,7 @@ export default function LabsPage() {
       <p>
         <a
           id="wd-github"
-          href="https://github.com/YOUR_USERNAME/kambaz-next-js"
+          href="https://github.com/dhruthi-06/kambaz-next-js"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -21,10 +21,10 @@ export default function LabsPage() {
         </a>
       </p>
 
-      {/* Table of Contents component */}
+      
       <TOC />
 
-      {/* Direct links to labs as fallback or extra navigation */}
+      
       <ul>
         <li>
           <Link href="/Labs/Lab1" id="wd-lab1-link">
