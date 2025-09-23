@@ -9,6 +9,8 @@ export default function LabsPage() {
 
      
       <p id="wd-name">Dhruthi Rajesh</p>
+      <p id="wd-name">Offline Batch</p>
+      <p id="wd-name">Section: 18616</p>
 
       <p>
         <a

@@ -11,13 +11,13 @@ export default function AccountNavigation() {
           </Link>
         </li>
         <li>
-          <Link href="/Account/Settings" id="wd-account-settings-link">
-            Settings
+          <Link href="/Account/Signin" id="wd-account-profile-link">
+            Sign In
           </Link>
         </li>
         <li>
-          <Link href="/Account/Signout" id="wd-account-signout-link">
-            Sign Out
+          <Link href="/Account/Signup" id="wd-account-profile-link">
+            Sign Up
           </Link>
         </li>
       </ul>
