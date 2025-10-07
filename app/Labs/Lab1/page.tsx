@@ -171,7 +171,6 @@ Your favorite books (in no particular order)
            defaultValue="Wonderland"
            title="The last name"
            id="wd-text-fields-last-name" />
-   
   </form>
 
 </div>

@@ -1,0 +1,11 @@
+// GreenCheckmark.tsx
+import { FaCheckCircle } from "react-icons/fa";
+
+export default function GreenCheckmark() {
+  return (
+    <FaCheckCircle
+      className="text-success me-2"
+      style={{ fontSize: "1.3rem" }}
+    />
+  );
+}
