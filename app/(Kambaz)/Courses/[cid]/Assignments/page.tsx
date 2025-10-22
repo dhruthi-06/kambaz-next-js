@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import {
   ListGroup,
   ListGroupItem,
@@ -14,48 +15,27 @@ import {
   BsCaretDownFill,
   BsThreeDotsVertical,
 } from "react-icons/bs";
-import GreenCheckmark from "./GreenCheckmark"; 
+import GreenCheckmark from "./GreenCheckmark";
+import * as db from "../../../Database"; // ✅ ensure path correct
+
+interface Assignment {
+  _id: string;
+  name: string;
+  course: string;
+  modules: string;
+  notavailableuntil: string;
+  due: string;
+  points: number;
+  completed?: boolean;
+}
 
 export default function Assignments() {
+  const { cid } = useParams();
 
-  const assignments = [
-    {
-      id: "123",
-      title: "A1 – ENV + HTML",
-      modules: "Multiple",
-      Notavailableuntil: "SEP 10, 2025 11:59PM",
-      due: "SEP 20, 2025 11:59PM",
-      points: 100,
-      completed: true,
-    },
-    {
-      id: "234",
-      title: "A2 – CSS + BOOTSTRAP",
-      modules:  "Multiple",
-     Notavailableuntil: "SEP 20, 2025 11:59PM",
-      due: "SEP 30, 2025 11:59PM",
-      points: 100,
-      completed: true,
-    },
-    {
-      id: "345",
-      title: "A3 – JAVASCRIPT + REACTJS",
-      modules:  "Multiple",
-      Notavailableuntil: "OCT 1, 2025 11:59PM",
-      due: "OCT 10, 2025 11:59PM",
-      points: 100,
-      completed: true,
-    },
-    {
-      id: "456",
-      title: "A4 – NODEJS + EXPRESSJS",
-      modules:  "Multiple",
-      Notavailableuntil: "OCT 20, 2025 11:59PM",
-      due: "OCT 30, 2025 11:59PM",
-      points: 100,
-      completed: true,
-    },
-  ];
+  // ✅ Filter assignments for this course
+  const assignments: Assignment[] = db.assignments.filter(
+    (assignment) => assignment.course === cid
+  );
 
   return (
     <div id="wd-assignments" className="p-3">
@@ -97,12 +77,10 @@ export default function Assignments() {
         </div>
 
         <div className="d-flex align-items-center gap-3">
-          {/* 40% Badge */}
           <span className="bg-light px-3 py-1 rounded-pill text-muted small border">
             40% of Total
           </span>
 
-          {/* Action Buttons */}
           <Button
             variant="light"
             size="sm"
@@ -126,7 +104,7 @@ export default function Assignments() {
       <ListGroup id="wd-assignment-list" className="mt-0">
         {assignments.map((assignment, index) => (
           <ListGroupItem
-            key={assignment.id}
+            key={assignment._id}
             className="rounded-0 p-3"
             style={{
               borderLeft: "5px solid green",
@@ -135,31 +113,32 @@ export default function Assignments() {
               borderBottom: "1px solid black",
             }}
           >
+            {/* ===== Row Header ===== */}
             <div className="d-flex align-items-center justify-content-between mb-1">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-4 text-secondary" />
                 <FaRegFileAlt className="text-secondary me-2 fs-5" />
                 <Link
-                  href={`/Courses/1234/Assignments/${assignment.id}`}
+                  href={`/Courses/${cid}/Assignments/${assignment._id}`} // ✅ FIXED LINE
                   className="fw-bold fs-5 text-dark text-decoration-none"
                 >
-                  {assignment.title}
+                  {assignment.name}
                 </Link>
               </div>
 
-              {/* Green Checkmark (only for completed) + Dots */}
               <div className="d-flex align-items-center">
                 {assignment.completed && <GreenCheckmark />}
                 <BsThreeDotsVertical className="text-secondary ms-2" />
               </div>
             </div>
 
+            {/* ===== Details ===== */}
             <div className="text-muted small ps-4">
               <span className="text-danger fw-bold">
                 {assignment.modules} Modules
               </span>{" "}
-              | <b>Not available until</b> {assignment.Notavailableuntil}  | <b> Due </b>{assignment.due} |{" "}
-              {assignment.points} pts
+              | <b>Not available until</b> {assignment.notavailableuntil} |{" "}
+              <b>Due</b> {assignment.due} | {assignment.points} pts
             </div>
           </ListGroupItem>
         ))}

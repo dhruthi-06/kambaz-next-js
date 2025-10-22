@@ -2,24 +2,47 @@
 
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 import { AiOutlineClose } from "react-icons/ai";
+import { useParams } from "next/navigation";
+import * as db from "../../../../Database";
+import Link from "next/link";
 
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+
+  // Find the assignment for the current course
+  const assignment = db.assignments.find(
+    (a) => a._id === aid && a.course === cid
+  );
+
+  if (!assignment) {
+    return (
+      <div className="p-4 text-center">
+        <h4>Assignment not found</h4>
+        <Link href={`/Courses/${cid}/Assignments`}>
+          <Button variant="secondary" className="mt-3">
+            Back to Assignments
+          </Button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div
       id="wd-assignments-editor"
       className="p-4"
       style={{ maxWidth: "800px", margin: "0 auto" }}
     >
-      <h4 className="fw-bold mb-4">Edit Assignment</h4>
+      <h4 className="fw-bold mb-4">{assignment.name}</h4>
 
       <Form>
         {/* Assignment Name */}
         <Form.Group className="mb-3" controlId="wd-name">
           <Form.Label className="fw-semibold">Assignment Name</Form.Label>
-          <Form.Control type="text" defaultValue="A1 - ENV + HTML" />
+          <Form.Control type="text" defaultValue={assignment.name} readOnly />
         </Form.Group>
 
-    
+        {/* Description */}
         <Form.Group className="mb-4" controlId="wd-description">
           <div
             className="mt-2 border rounded p-2"
@@ -53,7 +76,7 @@ The Kanbas application should include a link to navigate back to the landing pag
             Points
           </Form.Label>
           <Col sm={9}>
-            <Form.Control type="number" defaultValue={100} />
+            <Form.Control type="text" value="100" readOnly />
           </Col>
         </Form.Group>
 
@@ -97,16 +120,8 @@ The Kanbas application should include a link to navigate back to the landing pag
               <option>NO SUBMISSION</option>
             </Form.Select>
             <div className="ms-2">
-              <Form.Check
-                type="checkbox"
-                id="wd-text-entry"
-                label="Text Entry"
-              />
-              <Form.Check
-                type="checkbox"
-                id="wd-website-url"
-                label="Website URL"
-              />
+              <Form.Check type="checkbox" id="wd-text-entry" label="Text Entry" />
+              <Form.Check type="checkbox" id="wd-website-url" label="Website URL" />
               <Form.Check
                 type="checkbox"
                 id="wd-media-recordings"
@@ -117,11 +132,7 @@ The Kanbas application should include a link to navigate back to the landing pag
                 id="wd-student-annotation"
                 label="Student Annotation"
               />
-              <Form.Check
-                type="checkbox"
-                id="wd-file-upload"
-                label="File Uploads"
-              />
+              <Form.Check type="checkbox" id="wd-file-upload" label="File Uploads" />
             </div>
           </Card.Body>
         </Card>
@@ -130,12 +141,9 @@ The Kanbas application should include a link to navigate back to the landing pag
         <h6 className="fw-bold mb-2">Assign</h6>
         <Card className="mb-4 border-1 shadow-sm">
           <Card.Body>
-            {/* Label outside inner box */}
             <Form.Label className="fw-semibold small mb-1">
               Assign To
             </Form.Label>
-
-            {/* Inner white box containing grey "Everyone" pill */}
             <div
               className="border rounded p-2 mb-4"
               style={{

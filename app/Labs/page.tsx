@@ -1,6 +1,6 @@
-// app/Labs/page.tsx
+
 import Link from "next/link";
-import TOC from "./TOC"; // Adjust the path if your TOC is elsewhere
+import TOC from "./TOC"; 
 
 export default function LabsPage() {
   return (
