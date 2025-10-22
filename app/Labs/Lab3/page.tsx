@@ -1,7 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
 
-
 import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes";
 import BooleanVariables from "./BooleanVariables";
@@ -30,30 +29,24 @@ import DestructingImports from "./DestructingImports";
 import Classes from "./Classes";
 import Styles from "./Styles";
 import Add from "./Add";
+import Square from "./Square";
+import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
 import TodoItem from "./todos/TodoItem";
 import TodoList from "./todos/TodoList";
 
-
 // Child components
-export function Square({ children }: { children: ReactNode }) {
-  const num = Number(children);
-  return <span id="wd-square">{num * num}</span>;
-}
 
-export function Highlight({ children }: { children: ReactNode }) {
+/*export function Highlight({ children }: { children: ReactNode }) {
   return (
-    <span
-      id="wd-highlight"
-      style={{ backgroundColor: "yellow", color: "red" }}
-    >
+    <span id="wd-highlight" style={{ backgroundColor: "yellow", color: "red" }}>
       {children}
     </span>
   );
-}
+}*/
 
 export default function Lab3() {
-  console.log('Hello World!');
+  console.log("Hello World!");
   return (
     <div id="wd-lab3">
       <h3>Lab 3</h3>
@@ -92,15 +85,17 @@ export default function Lab3() {
       <h4>Square of 4</h4>
       <Square>4</Square>
       <hr />
-
-      <h4>Highlighted Text</h4>
       <Highlight>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipitratione
         eaque illo minus cum, saepe totam vel nihil repellat nemo explicabo
         excepturi consectetur. Modi omnis minus sequi maiores, provident
         voluptates.
       </Highlight>
+      <hr />
       <PathParameters />
+      {/*<TodoItem />
+      <TodoList />*/}
+      <hr />
       <TodoItem />
       <TodoList />
     </div>
