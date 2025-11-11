@@ -1,54 +1,87 @@
 "use client";
+
 import Link from "next/link";
-import { Form, Button } from "react-bootstrap";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { FormControl, Button } from "react-bootstrap";
+import * as db from "../../Database";
+import { setCurrentUser } from "../reducer";
+import type { User } from "../reducer"; 
+
+
 
 export default function Signin() {
+  const [credentials, setCredentials] = useState<{ username?: string; password?: string }>({});
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const signin = () => {
+    // Get users from database
+    const dbUsers = db.users as unknown as User[];
+    
+    // Get users from localStorage (newly created users)
+    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]") as User[];
+    
+    // Combine both sources
+    const allUsers = [...dbUsers, ...storedUsers];
+
+    // Find user by username and password
+    const user = allUsers.find(
+      (u) =>
+        u.username === credentials.username &&
+        u.password === credentials.password
+    );
+
+    if (!user) {
+      alert("Invalid username or password!");
+      return;
+    }
+
+    dispatch(setCurrentUser(user));
+    router.push("/Dashboard");
+  };
+
+
+
   return (
-    <div
-      id="wd-signin-screen"
-      className="d-flex justify-content-center align-items-center vh-100 bg-light"
-    >
-      <div
-        className="border rounded p-4 shadow-sm bg-white"
-        style={{ width: "350px" }}
+    <div id="wd-signin-screen" className="p-4">
+      <h3 className="mb-3">Sign In</h3>
+
+      <FormControl
+        id="wd-username"
+        placeholder="username"
+        className="mb-2"
+        value={credentials.username || ""}
+        onChange={(e) =>
+          setCredentials({ ...credentials, username: e.target.value })
+        }
+      />
+
+      <FormControl
+        id="wd-password"
+        placeholder="password"
+        type="password"
+        className="mb-3"
+        value={credentials.password || ""}
+        onChange={(e) =>
+          setCredentials({ ...credentials, password: e.target.value })
+        }
+      />
+
+      <Button
+        id="wd-signin-btn"
+        className="w-100 mb-3"
+        onClick={signin}
+        variant="primary"
       >
-        <h3 className="text-center text-black mb-4">Sign In</h3>
+        Sign In
+      </Button>
 
-        <Form>
-          {/* Username */}
-          <Form.Group className="mb-3" controlId="wd-username">
-            <Form.Control
-              type="text"
-              placeholder="Username"
-              defaultValue="johndoe"
-            />
-          </Form.Group>
-
-          {/* Password */}
-          <Form.Group className="mb-3" controlId="wd-password">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              defaultValue="password123"
-            />
-          </Form.Group>
-
-          {/* Sign in button */}
-          <Link
-            href="/Account/Profile"
-            id="wd-signin-btn"
-            className="btn btn-primary w-100 mb-3"
-          >
-            Sign in
-          </Link>
-
-          {/* Sign up link */}
-          <div className="text-center">
-            <Link href="/Account/Signup" id="wd-signup-link">
-              Sign up
-            </Link>
-          </div>
-        </Form>
+      <div>
+        <Link id="wd-signup-link" href="/Account/Signup">
+          Signup
+        </Link>
       </div>
     </div>
   );

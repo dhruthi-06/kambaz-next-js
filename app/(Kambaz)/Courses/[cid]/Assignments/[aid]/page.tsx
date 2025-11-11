@@ -1,31 +1,109 @@
 "use client";
 
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { AiOutlineClose } from "react-icons/ai";
-import { useParams } from "next/navigation";
-import * as db from "../../../../Database";
-import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment } from "../reducer";
+import { RootState } from "../../../../store";
+import { useState, useEffect } from "react";
+
+// Helper function to convert date string to YYYY-MM-DD format for date input
+const formatDateForInput = (dateStr: string | undefined): string => {
+  if (!dateStr) return "";
+  // If already in YYYY-MM-DD format, return as is
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr;
+  
+  // Try to parse formats like "SEP 10, 2025 11:59PM" or "NOV 01, 2025 11:59PM"
+  try {
+    const date = new Date(dateStr);
+    if (!isNaN(date.getTime())) {
+      return date.toISOString().split('T')[0];
+    }
+  } catch (e) {
+    // If parsing fails, return empty string
+  }
+  return "";
+};
+
+// Helper function to convert YYYY-MM-DD to display format
+const formatDateForDisplay = (dateStr: string | undefined): string => {
+  if (!dateStr) return "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    const date = new Date(dateStr + "T23:59:00");
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    return `${months[date.getMonth()]} ${date.getDate().toString().padStart(2, '0')}, ${date.getFullYear()} 11:59PM`;
+  }
+  return dateStr;
+};
 
 export default function AssignmentEditor() {
-  const { cid, aid } = useParams();
+  const { cid, aid } = useParams<{ cid: string; aid: string }>();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  // Find the assignment for the current course
-  const assignment = db.assignments.find(
+  // ✅ Access assignments from Redux store
+  const assignments = useSelector(
+    (state: RootState) => state.assignmentReducer.assignments
+  );
+
+  const isNew = aid === "new";
+  const existing = isNew ? null : assignments.find(
     (a) => a._id === aid && a.course === cid
   );
 
-  if (!assignment) {
-    return (
-      <div className="p-4 text-center">
-        <h4>Assignment not found</h4>
-        <Link href={`/Courses/${cid}/Assignments`}>
-          <Button variant="secondary" className="mt-3">
-            Back to Assignments
-          </Button>
-        </Link>
-      </div>
-    );
-  }
+  const [assignment, setAssignment] = useState({
+    _id: existing?._id || "",
+    name: existing?.name || "",
+    course: cid,
+    modules: existing?.modules || "Multiple Modules",
+    description: existing?.description || "",
+    notavailableuntil: formatDateForInput(existing?.notavailableuntil),
+    due: formatDateForInput(existing?.due),
+    points: existing?.points || 100,
+    completed: existing?.completed || false,
+  });
+
+  // Update state when existing assignment changes
+  useEffect(() => {
+    if (existing && !isNew) {
+      setAssignment({
+        _id: existing._id,
+        name: existing.name,
+        course: cid,
+        modules: existing.modules || "Multiple Modules",
+        description: existing.description || "",
+        notavailableuntil: formatDateForInput(existing.notavailableuntil),
+        due: formatDateForInput(existing.due),
+        points: existing.points || 100,
+        completed: existing.completed || false,
+      });
+    }
+  }, [existing, cid, isNew]);
+
+  const handleSave = () => {
+    if (isNew) {
+      // Create new assignment
+      const newAssignment = {
+        ...assignment,
+        notavailableuntil: formatDateForDisplay(assignment.notavailableuntil),
+        due: formatDateForDisplay(assignment.due),
+      };
+      dispatch(addAssignment(newAssignment));
+    } else {
+      // Update existing assignment
+      const updatedAssignment = {
+        ...assignment,
+        notavailableuntil: formatDateForDisplay(assignment.notavailableuntil),
+        due: formatDateForDisplay(assignment.due),
+      };
+      dispatch(updateAssignment(updatedAssignment));
+    }
+    router.push(`/Courses/${cid}/Assignments`);
+  };
+
+  const handleCancel = () => {
+    router.push(`/Courses/${cid}/Assignments`);
+  };
 
   return (
     <div
@@ -33,40 +111,33 @@ export default function AssignmentEditor() {
       className="p-4"
       style={{ maxWidth: "800px", margin: "0 auto" }}
     >
-      <h4 className="fw-bold mb-4">{assignment.name}</h4>
+      <h4 className="fw-bold mb-4">{isNew ? "Create Assignment" : assignment.name || "Edit Assignment"}</h4>
 
       <Form>
         {/* Assignment Name */}
         <Form.Group className="mb-3" controlId="wd-name">
           <Form.Label className="fw-semibold">Assignment Name</Form.Label>
-          <Form.Control type="text" defaultValue={assignment.name} readOnly />
+          <Form.Control
+            type="text"
+            value={assignment.name}
+            onChange={(e) =>
+              setAssignment({ ...assignment, name: e.target.value })
+            }
+            placeholder="Enter assignment name"
+          />
         </Form.Group>
 
         {/* Description */}
-        <Form.Group className="mb-4" controlId="wd-description">
-          <div
-            className="mt-2 border rounded p-2"
-            contentEditable
-            style={{
-              height: "200px",
-              overflowY: "auto",
-              whiteSpace: "pre-wrap",
-              backgroundColor: "white",
-            }}
-            suppressContentEditableWarning={true}
-            dangerouslySetInnerHTML={{
-              __html: `This assignment is <span style="color:red;">available online</span>
-
-Submit a link to the landing page of your Web application running on Netlify.
-
-The landing page should include the following:
-• Your full name and section
-• Links to each of the lab assignments
-• Link to the Kanbas application
-• Links to all relevant source code repositories
-
-The Kanbas application should include a link to navigate back to the landing page.`,
-            }}
+        <Form.Group className="mb-3" controlId="wd-description">
+          <Form.Label className="fw-semibold">Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            value={assignment.description}
+            onChange={(e) =>
+              setAssignment({ ...assignment, description: e.target.value })
+            }
+            placeholder="Enter assignment description"
           />
         </Form.Group>
 
@@ -76,118 +147,51 @@ The Kanbas application should include a link to navigate back to the landing pag
             Points
           </Form.Label>
           <Col sm={9}>
-            <Form.Control type="text" value="100" readOnly />
+            <Form.Control
+              type="number"
+              value={assignment.points}
+              onChange={(e) =>
+                setAssignment({
+                  ...assignment,
+                  points: Number(e.target.value),
+                })
+              }
+            />
           </Col>
         </Form.Group>
-
-        {/* Assignment Group */}
-        <Form.Group as={Row} className="mb-3" controlId="wd-group">
-          <Form.Label column sm={3} className="fw-semibold">
-            Assignment Group
-          </Form.Label>
-          <Col sm={9}>
-            <Form.Select defaultValue="ASSIGNMENTS">
-              <option>ASSIGNMENTS</option>
-              <option>QUIZZES</option>
-              <option>EXAMS</option>
-              <option>PROJECT</option>
-            </Form.Select>
-          </Col>
-        </Form.Group>
-
-        {/* Display Grade As */}
-        <Form.Group as={Row} className="mb-3" controlId="wd-display-grade-as">
-          <Form.Label column sm={3} className="fw-semibold">
-            Display Grade As
-          </Form.Label>
-          <Col sm={9}>
-            <Form.Select defaultValue="Percentage">
-              <option>Percentage</option>
-              <option>Points</option>
-              <option>Complete/Incomplete</option>
-              <option>Letter Grade</option>
-            </Form.Select>
-          </Col>
-        </Form.Group>
-
-        {/* Submission Type */}
-        <h6 className="fw-bold mb-2">Submission Type</h6>
-        <Card className="mb-4 border-1 shadow-sm">
-          <Card.Body>
-            <Form.Select defaultValue="ONLINE" className="mb-3 w-50">
-              <option>ONLINE</option>
-              <option>ON PAPER</option>
-              <option>NO SUBMISSION</option>
-            </Form.Select>
-            <div className="ms-2">
-              <Form.Check type="checkbox" id="wd-text-entry" label="Text Entry" />
-              <Form.Check type="checkbox" id="wd-website-url" label="Website URL" />
-              <Form.Check
-                type="checkbox"
-                id="wd-media-recordings"
-                label="Media Recordings"
-              />
-              <Form.Check
-                type="checkbox"
-                id="wd-student-annotation"
-                label="Student Annotation"
-              />
-              <Form.Check type="checkbox" id="wd-file-upload" label="File Uploads" />
-            </div>
-          </Card.Body>
-        </Card>
 
         {/* Assign Section */}
         <h6 className="fw-bold mb-2">Assign</h6>
         <Card className="mb-4 border-1 shadow-sm">
           <Card.Body>
-            <Form.Label className="fw-semibold small mb-1">
-              Assign To
-            </Form.Label>
-            <div
-              className="border rounded p-2 mb-4"
-              style={{
-                backgroundColor: "white",
-                borderColor: "#ccc",
-                maxWidth: "350px",
-              }}
-            >
-              <div
-                className="d-inline-flex align-items-center px-2 py-1 rounded"
-                style={{
-                  backgroundColor: "#f3f3f3",
-                  border: "1px solid #ccc",
-                  maxWidth: "fit-content",
-                }}
-              >
-                <span className="small me-1">Everyone</span>
-                <AiOutlineClose
-                  className="text-dark"
-                  style={{ cursor: "pointer", fontSize: "0.9rem" }}
-                />
-              </div>
-            </div>
-
-            {/* Dates */}
             <Row>
-              <Col md={4}>
-                <Form.Group controlId="wd-due-date">
-                  <Form.Label className="fw-semibold small">Due</Form.Label>
-                  <Form.Control type="date" defaultValue="2025-09-20" />
-                </Form.Group>
-              </Col>
               <Col md={4}>
                 <Form.Group controlId="wd-available-from">
                   <Form.Label className="fw-semibold small">
                     Available From
                   </Form.Label>
-                  <Form.Control type="date" defaultValue="2025-09-15" />
+                  <Form.Control
+                    type="date"
+                    value={assignment.notavailableuntil}
+                    onChange={(e) =>
+                      setAssignment({
+                        ...assignment,
+                        notavailableuntil: e.target.value,
+                      })
+                    }
+                  />
                 </Form.Group>
               </Col>
               <Col md={4}>
-                <Form.Group controlId="wd-available-until">
-                  <Form.Label className="fw-semibold small">Until</Form.Label>
-                  <Form.Control type="date" defaultValue="2025-10-01" />
+                <Form.Group controlId="wd-due-date">
+                  <Form.Label className="fw-semibold small">Due</Form.Label>
+                  <Form.Control
+                    type="date"
+                    value={assignment.due}
+                    onChange={(e) =>
+                      setAssignment({ ...assignment, due: e.target.value })
+                    }
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -196,10 +200,10 @@ The Kanbas application should include a link to navigate back to the landing pag
 
         {/* Buttons */}
         <div className="d-flex justify-content-end gap-2">
-          <Button variant="secondary" id="wd-cancel-btn">
+          <Button variant="secondary" id="wd-cancel-btn" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button variant="danger" id="wd-save-btn">
+          <Button variant="danger" id="wd-save-btn" onClick={handleSave}>
             Save
           </Button>
         </div>
