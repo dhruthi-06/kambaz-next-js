@@ -7,17 +7,17 @@ const api = axios.create({
   baseURL: HTTP_SERVER,
 });
 
-// -------------------------------
-// 5.2.5.3 Welcome Message
-// -------------------------------
+// -----------------------------
+// Welcome Message
+// -----------------------------
 export const fetchWelcomeMessage = async () => {
   const response = await axios.get(`${HTTP_SERVER}/lab5/welcome`);
   return response.data;
 };
 
-// -------------------------------
-// 5.2.5.5 Working with Assignment Object Asynchronously
-// -------------------------------
+// -----------------------------
+// Assignment API
+// -----------------------------
 const ASSIGNMENT_API = `${HTTP_SERVER}/lab5/assignment`;
 
 export const fetchAssignment = async () => {
@@ -30,9 +30,9 @@ export const updateTitle = async (title: string) => {
   return response.data;
 };
 
-// -------------------------------
-// 5.2.5.6 Todos
-// -------------------------------
+// -----------------------------
+// TODOS API
+// -----------------------------
 const TODOS_API = `${HTTP_SERVER}/lab5/todos`;
 
 export const fetchTodos = async () => {
@@ -40,34 +40,32 @@ export const fetchTodos = async () => {
   return response.data;
 };
 
-// -------------------------------
-// 5.2.5.7 Delete Todo
-// -------------------------------
+// OLD REMOVE (GET /delete)
 export const removeTodo = async (todo: any) => {
   const response = await axios.get(`${TODOS_API}/${todo.id}/delete`);
   return response.data;
 };
 
-// -------------------------------
-// 5.2.5.8 Create (GET)
-// -------------------------------
+// OLD CREATE (GET /create)
 export const createNewTodo = async () => {
   const response = await axios.get(`${TODOS_API}/create`);
   return response.data;
 };
 
-// -------------------------------
-// 5.2.6.1 Create (POST)
-// -------------------------------
+// NEW CREATE (POST)
 export const postNewTodo = async (todo: any) => {
   const response = await axios.post(`${TODOS_API}`, todo);
   return response.data;
 };
 
-// -------------------------------
-// 5.2.6.2 Delete (DELETE)
-// -------------------------------
+// NEW DELETE (DELETE)
 export const deleteTodo = async (todo: any) => {
   const response = await axios.delete(`${TODOS_API}/${todo.id}`);
+  return response.data;
+};
+
+// NEW UPDATE (PUT)
+export const updateTodo = async (todo: any) => {
+  const response = await axios.put(`${TODOS_API}/${todo.id}`, todo);
   return response.data;
 };

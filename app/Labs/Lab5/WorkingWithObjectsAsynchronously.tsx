@@ -7,13 +7,13 @@ import { FormControl } from "react-bootstrap";
 export default function WorkingWithObjectsAsynchronously() {
   const [assignment, setAssignment] = useState<any>({});
 
-  // Fetch assignment when component loads
+ 
   const fetchAssignment = async () => {
     const data = await client.fetchAssignment();
     setAssignment(data);
   };
 
-  // Update only the title on server
+
   const updateTitle = async (title: string) => {
     const updated = await client.updateTitle(title);
     setAssignment(updated);
@@ -28,7 +28,7 @@ export default function WorkingWithObjectsAsynchronously() {
       <h3>Working with Objects Asynchronously</h3>
       <h4>Assignment</h4>
 
-      {/* TITLE */}
+  
       <FormControl
         value={assignment.title || ""}
         className="mb-2"
@@ -37,7 +37,7 @@ export default function WorkingWithObjectsAsynchronously() {
         }
       />
 
-      {/* DESCRIPTION */}
+
       <FormControl
         as="textarea"
         rows={3}
@@ -48,7 +48,7 @@ export default function WorkingWithObjectsAsynchronously() {
         }
       />
 
-      {/* DUE DATE */}
+   
       <FormControl
         type="date"
         value={assignment.due || ""}
@@ -58,7 +58,6 @@ export default function WorkingWithObjectsAsynchronously() {
         }
       />
 
-      {/* COMPLETED CHECKBOX */}
       <div className="form-check form-switch">
         <input
           className="form-check-input"

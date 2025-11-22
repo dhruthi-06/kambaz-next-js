@@ -30,7 +30,7 @@ export default function WorkingWithObjects() {
     <div id="wd-working-with-objects">
       <h3>Working With Objects</h3>
 
-      {/* RETRIEVING OBJECTS */}
+
       <h4>Retrieving Objects</h4>
 
       <a className="btn btn-primary me-2" href={`${ASSIGNMENT_API_URL}`}>
@@ -43,7 +43,7 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* RETRIEVING MODULE */}
+ 
       <h4>Module Object</h4>
 
       <a className="btn btn-primary me-2" href={`${MODULE_API_URL}`}>
@@ -56,7 +56,7 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* MODIFY ASSIGNMENT TITLE */}
+ 
       <h4>Modify Assignment Title</h4>
 
       <FormControl
@@ -78,7 +78,7 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* MODIFY ASSIGNMENT SCORE */}
+      
       <h4>Modify Assignment Score</h4>
 
       <FormControl
@@ -101,7 +101,6 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* MODIFY ASSIGNMENT COMPLETED */}
       <h4>Modify Assignment Completed</h4>
 
       <div className="mb-2">
@@ -130,7 +129,7 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* MODIFY MODULE NAME */}
+   
       <h4>Modify Module Name</h4>
 
       <FormControl
@@ -150,7 +149,7 @@ export default function WorkingWithObjects() {
 
       <hr />
 
-      {/* MODIFY MODULE DESCRIPTION */}
+    
       <h4>Modify Module Description</h4>
 
       <FormControl

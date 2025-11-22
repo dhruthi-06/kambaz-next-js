@@ -1,5 +1,5 @@
 "use client";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Enrollment {
   user: string;
@@ -11,22 +11,35 @@ interface EnrollmentsState {
 }
 
 const initialState: EnrollmentsState = {
-  enrollments: [],   // ⭐ server fills this
+  enrollments: [],
 };
 
 const enrollmentsSlice = createSlice({
   name: "enrollments",
   initialState,
   reducers: {
-    setEnrollments: (state, { payload }) => {
-      state.enrollments = payload;
+    // Replace entire list (comes from server)
+    setEnrollments: (state, action: PayloadAction<Enrollment[]>) => {
+      state.enrollments = action.payload;
     },
-    addEnrollment: (state, { payload }) => {
-      state.enrollments.push(payload);
+
+    // Add only if not already enrolled
+    addEnrollment: (state, action: PayloadAction<Enrollment>) => {
+      const exists = state.enrollments.some(
+        (e) =>
+          e.user === action.payload.user &&
+          e.course === action.payload.course
+      );
+      if (!exists) {
+        state.enrollments.push(action.payload);
+      }
     },
-    removeEnrollment: (state, { payload }) => {
+
+    // Remove by user + course
+    removeEnrollment: (state, action: PayloadAction<Enrollment>) => {
       state.enrollments = state.enrollments.filter(
-        (e) => !(e.user === payload.user && e.course === payload.course)
+        (e) =>
+          !(e.user === action.payload.user && e.course === action.payload.course)
       );
     },
   },

@@ -19,18 +19,13 @@ export default function WorkingWithArrays() {
     <div id="wd-working-with-arrays">
       <h2>Working with Arrays</h2>
 
-      {/* ---------------------------------------------------- */}
-      {/* 5.2.4.1 - Get all todos                              */}
-      {/* ---------------------------------------------------- */}
       <h3>Retrieving Arrays</h3>
       <a id="wd-retrieve-todos" className="btn btn-primary" href={API}>
         Get Todos
       </a>
       <hr />
 
-      {/* ---------------------------------------------------- */}
-      {/* 5.2.4.2 - Retrieve by ID                             */}
-      {/* ---------------------------------------------------- */}
+  
       <h3>Retrieving an Item from an Array by ID</h3>
 
       <a
@@ -49,9 +44,7 @@ export default function WorkingWithArrays() {
       />
       <hr />
 
-      {/* ---------------------------------------------------- */}
-      {/* 5.2.4.5 - Delete using GET                           */}
-      {/* ---------------------------------------------------- */}
+     
       <h3>Deleting from an Array</h3>
 
       <a
@@ -69,9 +62,7 @@ export default function WorkingWithArrays() {
       />
       <hr />
 
-      {/* ---------------------------------------------------- */}
-      {/* 5.2.4.6 - Update Title                               */}
-      {/* ---------------------------------------------------- */}
+      
       <h3>Updating Title</h3>
 
       <a
@@ -98,12 +89,10 @@ export default function WorkingWithArrays() {
       <br />
       <hr />
 
-      {/* ---------------------------------------------------- */}
-      {/* 5.2.4.7 - Update description & completed (On Your Own) */}
-      {/* ---------------------------------------------------- */}
+      
       <h3>Updating Description & Completed</h3>
 
-      {/* Update Completed */}
+    
       <a
         id="wd-update-todo-completed"
         className="btn btn-warning float-end ms-2"
@@ -112,7 +101,7 @@ export default function WorkingWithArrays() {
         Update Completed
       </a>
 
-      {/* Update Description */}
+    
       <a
         id="wd-update-todo-description"
         className="btn btn-secondary float-end"
@@ -121,21 +110,21 @@ export default function WorkingWithArrays() {
         Update Description
       </a>
 
-      {/* ID input */}
+  
       <FormControl
         className="w-25 float-start me-2"
         defaultValue={todo.id}
         onChange={(e) => setTodo({ ...todo, id: e.target.value })}
       />
 
-      {/* Description input */}
+   
       <FormControl
         className="w-50 float-start me-2"
         defaultValue={todo.description}
         onChange={(e) => setTodo({ ...todo, description: e.target.value })}
       />
 
-      {/* Completed Checkbox */}
+ 
       <div className="form-check float-start mt-2">
         <input
           id="wd-todo-completed"

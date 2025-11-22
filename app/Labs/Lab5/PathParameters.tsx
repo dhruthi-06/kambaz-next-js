@@ -44,7 +44,7 @@ export default function PathParameters() {
         Subtract {a} - {b}
       </a>
 
-      {/* 👉 You must add these two */}
+    
       <a
         className="btn btn-success me-2"
         id="wd-path-parameter-multiply"

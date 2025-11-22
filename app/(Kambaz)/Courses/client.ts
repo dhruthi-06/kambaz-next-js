@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosWithCredentials = axios.create({
-  withCredentials: true,
   baseURL: process.env.NEXT_PUBLIC_HTTP_SERVER,
+  withCredentials: true,
 });
 
 const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
