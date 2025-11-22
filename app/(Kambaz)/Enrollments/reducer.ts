@@ -1,6 +1,5 @@
 "use client";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as db from "../Database";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface Enrollment {
   user: string;
@@ -12,30 +11,28 @@ interface EnrollmentsState {
 }
 
 const initialState: EnrollmentsState = {
-  enrollments: db.enrollments,
+  enrollments: [],   // ⭐ server fills this
 };
 
 const enrollmentsSlice = createSlice({
   name: "enrollments",
   initialState,
   reducers: {
-    enroll: (state, action: PayloadAction<Enrollment>) => {
-      const exists = state.enrollments.some(
-        (e) =>
-          e.user === action.payload.user && e.course === action.payload.course
-      );
-      if (!exists) state.enrollments.push(action.payload);
+    setEnrollments: (state, { payload }) => {
+      state.enrollments = payload;
     },
-    unenroll: (state, action: PayloadAction<Enrollment>) => {
+    addEnrollment: (state, { payload }) => {
+      state.enrollments.push(payload);
+    },
+    removeEnrollment: (state, { payload }) => {
       state.enrollments = state.enrollments.filter(
-        (e) =>
-          !(
-            e.user === action.payload.user && e.course === action.payload.course
-          )
+        (e) => !(e.user === payload.user && e.course === payload.course)
       );
     },
   },
 });
 
-export const { enroll, unenroll } = enrollmentsSlice.actions;
+export const { setEnrollments, addEnrollment, removeEnrollment } =
+  enrollmentsSlice.actions;
+
 export default enrollmentsSlice.reducer;

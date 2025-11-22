@@ -1,6 +1,6 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as db from "../Database"; 
+import * as db from "../Database";
 
 
 export type User = {

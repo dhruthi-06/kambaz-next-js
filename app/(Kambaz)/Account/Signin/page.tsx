@@ -1,48 +1,37 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
-import * as db from "../../Database";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 import { setCurrentUser } from "../reducer";
-import type { User } from "../reducer"; 
-
-
+import * as client from "../client";
 
 export default function Signin() {
-  const [credentials, setCredentials] = useState<{ username?: string; password?: string }>({});
+  const [credentials, setCredentials] = useState<any>({});
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const signin = () => {
-    // Get users from database
-    const dbUsers = db.users as unknown as User[];
-    
-    // Get users from localStorage (newly created users)
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]") as User[];
-    
-    // Combine both sources
-    const allUsers = [...dbUsers, ...storedUsers];
+  const signin = async () => {
+    try {
+      const user = await client.signin(credentials);
 
-    // Find user by username and password
-    const user = allUsers.find(
-      (u) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
+      if (!user) {
+        alert("Invalid username or password");
+        return;
+      }
 
-    if (!user) {
-      alert("Invalid username or password!");
-      return;
+      dispatch(setCurrentUser(user));
+
+      // ✅ LAB REQUIREMENT — GO TO PROFILE AFTER SIGNIN
+      router.push("/Dashboard");
+
+    } catch (err) {
+      alert("Unable to sign in. Check your server and credentials.");
+      console.error(err);
     }
-
-    dispatch(setCurrentUser(user));
-    router.push("/Dashboard");
   };
-
-
 
   return (
     <div id="wd-signin-screen" className="p-4">
@@ -72,8 +61,8 @@ export default function Signin() {
       <Button
         id="wd-signin-btn"
         className="w-100 mb-3"
-        onClick={signin}
         variant="primary"
+        onClick={signin}
       >
         Sign In
       </Button>

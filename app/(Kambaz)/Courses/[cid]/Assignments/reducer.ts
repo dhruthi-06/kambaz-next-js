@@ -1,10 +1,7 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { assignments as dbAssignments } from "../../../Database"; // ✅ adjust path if needed
-import { v4 as uuidv4 } from "uuid";
 
-// ✅ Define the Assignment interface
 export interface Assignment {
   _id: string;
   name: string;
@@ -15,60 +12,56 @@ export interface Assignment {
   due?: string;
   points?: number;
   completed?: boolean;
+  editing?: boolean;   // ⭐ needed for editor
 }
 
-// ✅ Define the state type
 interface AssignmentsState {
   assignments: Assignment[];
 }
 
-// ✅ Initialize with database data
 const initialState: AssignmentsState = {
-  assignments: dbAssignments as Assignment[],
+  assignments: [],
 };
 
-// ✅ Create the slice
 const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    // ➕ Add a new assignment
+    setAssignments: (state, { payload }) => {
+      state.assignments = payload;
+    },
+
     addAssignment: (state, { payload }) => {
-      const newAssignment: Assignment = {
-        _id: uuidv4(),
-        name: payload.name || "New Assignment",
-        course: payload.course,
-        modules: payload.modules || "General",
-        description: payload.description || "",
-        notavailableuntil: payload.notavailableuntil || "2025-01-01",
-        due: payload.due || "2025-01-10",
-        points: Number(payload.points) || 100, // ✅ convert to number
-        completed: false,
-      };
-      state.assignments.push(newAssignment);
+      state.assignments.push(payload);
     },
 
-    // ✏️ Update an existing assignment
     updateAssignment: (state, { payload }) => {
-      const index = state.assignments.findIndex((a) => a._id === payload._id);
-      if (index !== -1) {
-        state.assignments[index] = {
-          ...state.assignments[index],
-          ...payload,
-          points: Number(payload.points), // ✅ ensure numeric
-        };
-      }
+      state.assignments = state.assignments.map((a) =>
+        a._id === payload._id ? payload : a
+      );
     },
 
-    // ❌ Delete an assignment
-    deleteAssignment: (state, { payload: id }) => {
-      state.assignments = state.assignments.filter((a) => a._id !== id);
+    deleteAssignment: (state, { payload }) => {
+      state.assignments = state.assignments.filter(
+        (a) => a._id !== payload
+      );
+    },
+
+    // ⭐ THIS WAS MISSING
+    editAssignment: (state, { payload: assignmentId }) => {
+      state.assignments = state.assignments.map((a) =>
+        a._id === assignmentId ? { ...a, editing: true } : a
+      );
     },
   },
 });
 
-// ✅ Export actions and reducer
-export const { addAssignment, updateAssignment, deleteAssignment } =
-  assignmentsSlice.actions;
+export const {
+  setAssignments,
+  addAssignment,
+  updateAssignment,
+  deleteAssignment,
+  editAssignment,
+} = assignmentsSlice.actions;
 
 export default assignmentsSlice.reducer;

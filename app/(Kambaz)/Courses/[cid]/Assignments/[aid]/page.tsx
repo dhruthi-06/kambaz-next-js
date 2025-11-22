@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment } from "../reducer";
 import { RootState } from "../../../../store";
 import { useState, useEffect } from "react";
+import * as client from "../../../client";
+
 
 // Helper function to convert date string to YYYY-MM-DD format for date input
 const formatDateForInput = (dateStr: string | undefined): string => {
@@ -80,26 +82,24 @@ export default function AssignmentEditor() {
     }
   }, [existing, cid, isNew]);
 
-  const handleSave = () => {
-    if (isNew) {
-      // Create new assignment
-      const newAssignment = {
-        ...assignment,
-        notavailableuntil: formatDateForDisplay(assignment.notavailableuntil),
-        due: formatDateForDisplay(assignment.due),
-      };
-      dispatch(addAssignment(newAssignment));
-    } else {
-      // Update existing assignment
-      const updatedAssignment = {
-        ...assignment,
-        notavailableuntil: formatDateForDisplay(assignment.notavailableuntil),
-        due: formatDateForDisplay(assignment.due),
-      };
-      dispatch(updateAssignment(updatedAssignment));
-    }
-    router.push(`/Courses/${cid}/Assignments`);
+  const handleSave = async () => {
+  const payload = {
+    ...assignment,
+    notavailableuntil: formatDateForDisplay(assignment.notavailableuntil),
+    due: formatDateForDisplay(assignment.due),
   };
+
+  if (isNew) {
+    const created = await client.createAssignment(cid, payload);
+    dispatch(addAssignment(created));
+  } else {
+    const updated = await client.updateAssignment(payload);
+    dispatch(updateAssignment(updated));
+  }
+
+  router.push(`/Courses/${cid}/Assignments`);
+};
+
 
   const handleCancel = () => {
     router.push(`/Courses/${cid}/Assignments`);

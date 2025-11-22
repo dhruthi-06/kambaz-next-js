@@ -12,7 +12,7 @@ export default function CourseStatus() {
     <div id="wd-course-status" style={{ width: "350px" }}>
       <h2>Course Status</h2>
 
-      {/* Unpublish / Publish */}
+     
       <div className="d-flex">
         <div className="w-50 pe-1">
           <Button variant="secondary" size="lg" className="w-100 text-nowrap">
@@ -28,7 +28,7 @@ export default function CourseStatus() {
 
       <br />
 
-      {/* Other action buttons */}
+      
       <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
         <BiImport className="me-2 fs-5" /> Import Existing Content
       </Button>

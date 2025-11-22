@@ -10,23 +10,28 @@ import Link from "next/link";
 
 export default function KambazNavigation() {
   const pathname = usePathname();
+
+ 
   const links = [
     { label: "Dashboard", path: "/Dashboard", icon: AiOutlineDashboard },
-    { label: "Courses", path: "/Dashboard", icon: LiaBookSolid },
+    { label: "Courses", path: "/Kambaz/Courses", icon: LiaBookSolid },
     {
       label: "Calendar",
-      path: "https://northeastern.instructure.com/calendar#view_name=month&view_start=2025-09-22",
+      path: "https://northeastern.instructure.com/calendar#view_name=month",
       icon: IoCalendarOutline,
       external: true,
     },
     {
       label: "Inbox",
-      path: "https://northeastern.instructure.com/conversations#filter=type=inbox",
+      path: "https://northeastern.instructure.com/conversations",
       icon: FaInbox,
       external: true,
     },
     { label: "Labs", path: "/Labs", icon: LiaCogSolid },
   ];
+
+  
+  const isActive = (path: string) => pathname.startsWith(path);
 
   return (
     <ListGroup
@@ -34,7 +39,7 @@ export default function KambazNavigation() {
       style={{ width: 120 }}
       className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
     >
-     
+      
       <ListGroupItem
         id="wd-neu-link"
         target="_blank"
@@ -45,39 +50,42 @@ export default function KambazNavigation() {
         <img src="/images/NEU.png" width="75px" />
       </ListGroupItem>
 
-      
+   
       <ListGroupItem
         as={Link}
-        href="/Account"
-        className={`text-center border-0 bg-black ${
-          pathname.includes("Account")
-            ? "bg-white text-danger"
-            : "bg-black text-white"
+        href="/Account/Profile"
+        className={`text-center border-0 ${
+          isActive("/Account") ? "bg-white text-danger" : "bg-black text-white"
         }`}
       >
         <FaRegCircleUser
           className={`fs-1 ${
-            pathname.includes("Account") ? "text-danger" : "text-white"
+            isActive("/Account") ? "text-danger" : "text-white"
           }`}
         />
         <br />
         Account
       </ListGroupItem>
 
-
+     
       {links.map((link) => (
         <ListGroupItem
-          key={`${link.label}-${link.path}`}
+          key={link.label}
           as={link.external ? "a" : Link}
           href={link.path}
           target={link.external ? "_blank" : undefined}
-          className={`bg-black text-center border-0 ${
-            pathname.includes(link.label)
-              ? "text-danger bg-white"
-              : "text-white bg-black"
+          className={`text-center border-0 ${
+            !link.external && isActive(link.path)
+              ? "bg-white text-danger"
+              : "bg-black text-white"
           }`}
         >
-          {link.icon({ className: "fs-1 text-danger" })}
+          {link.icon({
+            className:
+              isActive(link.path) && !link.external
+                ? "fs-1 text-danger"
+                : "fs-1 text-white",
+          })}
           <br />
           {link.label}
         </ListGroupItem>

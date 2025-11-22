@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { courses as dbCourses } from "../Database";
-import { v4 as uuidv4 } from "uuid";
+"use client";
 
-// Define the Course type
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 export interface Course {
   _id: string;
   name: string;
@@ -11,45 +10,39 @@ export interface Course {
   endDate: string;
   image: string;
   description: string;
-  createdBy?: string; // Track who created the course
+  createdBy?: string;
 }
 
-// Define the state shape
 interface CoursesState {
   courses: Course[];
 }
 
-// Initial state
 const initialState: CoursesState = {
-  courses: dbCourses as Course[],
+  courses: [],       // ⭐ NO DATABASE IMPORT
 };
 
-// Create the slice
 const coursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    addNewCourse: (state, action: PayloadAction<Course>) => {
-      const newCourse = { ...action.payload, _id: uuidv4() };
-      state.courses = [...state.courses, newCourse];
+    setCourses: (state, action: PayloadAction<Course[]>) => {
+      state.courses = action.payload;
     },
-    deleteCourse: (state, action: PayloadAction<string>) => {
-      state.courses = state.courses.filter(
-        (course) => course._id !== action.payload
-      );
+    addNewCourse: (state, action: PayloadAction<Course>) => {
+      state.courses.push(action.payload);
     },
     updateCourse: (state, action: PayloadAction<Course>) => {
       state.courses = state.courses.map((c) =>
         c._id === action.payload._id ? action.payload : c
       );
     },
-    setCourses: (state, action: PayloadAction<Course[]>) => {
-      state.courses = action.payload;
+    deleteCourse: (state, action: PayloadAction<string>) => {
+      state.courses = state.courses.filter((c) => c._id !== action.payload);
     },
   },
 });
 
-// Export actions and reducer
 export const { addNewCourse, deleteCourse, updateCourse, setCourses } =
   coursesSlice.actions;
+
 export default coursesSlice.reducer;

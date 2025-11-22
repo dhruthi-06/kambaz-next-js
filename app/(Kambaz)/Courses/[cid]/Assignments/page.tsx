@@ -19,13 +19,14 @@ import GreenCheckmark from "./GreenCheckmark";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
-import {
-  addAssignment,
-  deleteAssignment,
-  updateAssignment,
-} from "../Assignments/reducer";
+import React from "react";
 
-// ---------------- Types ----------------
+import {
+  deleteAssignment,
+  setAssignments,
+} from "../Assignments/reducer";
+import * as client from "../../client"; // ⭐ server requests
+
 interface Assignment {
   _id: string;
   name: string;
@@ -37,35 +38,41 @@ interface Assignment {
   completed?: boolean;
 }
 
-// -------------- Component --------------
 export default function Assignments() {
   const { cid } = useParams<{ cid: string }>();
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // Get assignments from Redux
+  // Redux state
   const { assignments } = useSelector(
     (state: RootState) => state.assignmentReducer
   ) as { assignments: Assignment[] };
 
-  // Filter by the current course
+  // Filter per course
   const courseAssignments = assignments.filter((a) => a.course === cid);
 
-  // Handlers
-  const handleAdd = () => {
-    dispatch(
-      addAssignment({
-        name: "New Assignment",
-        course: cid,
-        modules: "General",
-        notavailableuntil: "2025-01-01",
-        due: "2025-01-10",
-        points: 100,
-      })
-    );
+  // ------------------------------
+  // ⭐ LOAD FROM SERVER ON MOUNT
+  // ------------------------------
+  const loadAssignments = async () => {
+    const serverAssignments = await client.findAssignmentsForCourse(cid);
+    dispatch(setAssignments(serverAssignments));
   };
 
-  const handleDelete = (id: string) => {
+  // Load once
+  React.useEffect(() => {
+    loadAssignments();
+  }, [cid]);
+
+  // ------------------------------
+  // Add new assignment → send user to editor
+  // ------------------------------
+  const handleAdd = () => {
+    router.push(`/Courses/${cid}/Assignments/new`);
+  };
+
+  const handleDelete = async (id: string) => {
+    await client.deleteAssignment(id);
     dispatch(deleteAssignment(id));
   };
 
@@ -73,23 +80,15 @@ export default function Assignments() {
     <div id="wd-assignments" className="p-3">
       {/* ===== Top Controls ===== */}
       <div className="d-flex justify-content-between align-items-center mb-4">
-        {/* Search Bar */}
         <InputGroup style={{ maxWidth: "300px" }}>
           <InputGroup.Text>
             <FaSearch />
           </InputGroup.Text>
-          <Form.Control
-            placeholder="Search for Assignments"
-            id="wd-search-assignment"
-          />
+          <Form.Control placeholder="Search for Assignments" />
         </InputGroup>
 
         {/* Buttons */}
         <div className="d-flex gap-2">
-          <Button variant="secondary" id="wd-add-assignment-group">
-            <FaPlus className="me-1" />
-            Group
-          </Button>
           <Button variant="danger" id="wd-add-assignment" onClick={handleAdd}>
             <FaPlus className="me-1" />
             Assignment
@@ -98,13 +97,10 @@ export default function Assignments() {
       </div>
 
       {/* ===== Gray Header Box ===== */}
-      <div
-        className="bg-secondary bg-opacity-25 p-3 d-flex align-items-center justify-content-between mb-0"
-        style={{ borderRadius: 0 }}
-      >
+      <div className="bg-secondary bg-opacity-25 p-3 d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center fw-bold fs-5">
-          <BsGripVertical className="me-2 fs-4 text-secondary" />
-          <BsCaretDownFill className="me-2 text-secondary" />
+          <BsGripVertical className="me-2 fs-4" />
+          <BsCaretDownFill className="me-2" />
           ASSIGNMENTS
         </div>
 
@@ -112,32 +108,16 @@ export default function Assignments() {
           <span className="bg-light px-3 py-1 rounded-pill text-muted small border">
             40% of Total
           </span>
-
-          <Button
-            variant="light"
-            size="sm"
-            className="border-0 text-secondary p-1"
-            title="Add Assignment"
-            onClick={handleAdd}
-          >
-            <FaPlus />
-          </Button>
-          <Button
-            variant="light"
-            size="sm"
-            className="border-0 text-secondary p-1"
-            title="More Options"
-          >
-            <BsThreeDotsVertical />
-          </Button>
+          <FaPlus />
+          <BsThreeDotsVertical />
         </div>
       </div>
 
       {/* ===== Assignment List ===== */}
-      <ListGroup id="wd-assignment-list" className="mt-0">
+      <ListGroup id="wd-assignment-list">
         {courseAssignments.map((assignment, index) => (
           <ListGroupItem
-            key={assignment._id}
+            key={assignment._id || `fallback-${index}`} // ⭐ FIXED UNIQUE KEY
             className="rounded-0 p-3"
             style={{
               borderLeft: "5px solid green",
@@ -146,14 +126,14 @@ export default function Assignments() {
               borderBottom: "1px solid black",
             }}
           >
-            {/* ===== Header Row ===== */}
-            <div className="d-flex align-items-center justify-content-between mb-1">
+            {/* Header Row */}
+            <div className="d-flex justify-content-between mb-1">
               <div className="d-flex align-items-center">
                 <BsGripVertical className="me-2 fs-4 text-secondary" />
                 <FaRegFileAlt className="text-secondary me-2 fs-5" />
                 <Link
                   href={`/Courses/${cid}/Assignments/${assignment._id}`}
-                  className="fw-bold fs-5 text-dark text-decoration-none"
+                  className="fw-bold fs-5 text-dark"
                 >
                   {assignment.name}
                 </Link>
@@ -161,6 +141,7 @@ export default function Assignments() {
 
               <div className="d-flex align-items-center gap-2">
                 {assignment.completed && <GreenCheckmark />}
+
                 <Button
                   variant="outline-danger"
                   size="sm"
@@ -168,11 +149,12 @@ export default function Assignments() {
                 >
                   Delete
                 </Button>
-                <BsThreeDotsVertical className="text-secondary" />
+
+                <BsThreeDotsVertical />
               </div>
             </div>
 
-            {/* ===== Details ===== */}
+            {/* Details */}
             <div className="text-muted small ps-4">
               <span className="text-danger fw-bold">
                 {assignment.modules ?? "General"}
@@ -184,7 +166,7 @@ export default function Assignments() {
           </ListGroupItem>
         ))}
 
-        {/* ===== Empty List Message ===== */}
+        {/* Empty message */}
         {courseAssignments.length === 0 && (
           <div className="text-center text-muted py-4">
             No assignments found for this course.
