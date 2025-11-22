@@ -7,6 +7,7 @@ import { setCourses } from "../Courses/reducer";
 import { useRouter } from "next/navigation";
 import * as client from "../Courses/client";
 
+
 import { Row, Col, Card, Button, FormControl } from "react-bootstrap";
 
 export default function Dashboard() {
@@ -24,9 +25,7 @@ export default function Dashboard() {
 
   const [showAll, setShowAll] = useState(true);
 
-  // -----------------------------
-  // LOAD COURSES FROM SERVER
-  // -----------------------------
+
   const fetchCourses = async () => {
     if (!currentUser) return;
     try {
@@ -41,28 +40,22 @@ export default function Dashboard() {
     fetchCourses();
   }, [currentUser]);
 
-  // -----------------------------
-  // CREATE NEW COURSE
-  // -----------------------------
+  
   const onAddNewCourse = async () => {
     const newCourse = await client.createCourse(course);
     dispatch(setCourses([...courses, newCourse]));
 
-    // Reset input
+  
     setCourse({ name: "", description: "", image: "/images/reactjs.webp" });
   };
 
-  // -----------------------------
-  // DELETE COURSE
-  // -----------------------------
+
   const onDeleteCourse = async (courseId: string) => {
     await client.deleteCourse(courseId);
     dispatch(setCourses(courses.filter((c) => c._id !== courseId)));
   };
 
-  // -----------------------------
-  // UPDATE COURSE
-  // -----------------------------
+ 
   const onUpdateCourse = async () => {
     await client.updateCourse(course);
     dispatch(
@@ -134,7 +127,7 @@ export default function Dashboard() {
 
                 <div className="d-flex justify-content-between">
 
-                  {/* Go button */}
+                  
                   <Button
                     variant="primary"
                     onClick={() => router.push(`/Courses/${c._id}/Home`)}
@@ -142,7 +135,6 @@ export default function Dashboard() {
                     Go
                   </Button>
 
-                  {/* Delete */}
                   <Button
                     variant="danger"
                     size="sm"
@@ -151,7 +143,7 @@ export default function Dashboard() {
                     Delete
                   </Button>
 
-                  {/* Edit */}
+                
                   <Button
                     variant="warning"
                     size="sm"

@@ -8,7 +8,7 @@ export default function TOC() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
-  // ensure client-only rendering for path-based logic
+  
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
@@ -84,6 +84,14 @@ export default function TOC() {
 
       <NavItem>
         <NavLink href="https://github.com/">My GitHub</NavLink>
+      </NavItem>
+
+       <NavItem>
+        <NavLink href="https://github.com/dhruthi-06/kambaz-node-server-app">Backend Repository</NavLink>
+      </NavItem>
+
+       <NavItem>
+        <NavLink href="https://kambaz-node-server-app-pwga.onrender.com">Backend Deployed App</NavLink>
       </NavItem>
     </Nav>
   );

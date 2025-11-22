@@ -4,9 +4,10 @@ export const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
 export const USERS_API = `${HTTP_SERVER}/api/users`;
 
 const api = axios.create({
-  baseURL: HTTP_SERVER,
-  withCredentials: true,   // ⭐ REQUIRED FOR SESSION COOKIES
+  baseURL: process.env.NEXT_PUBLIC_HTTP_SERVER,
+  withCredentials: true
 });
+
 
 export const signin = async (credentials: any) => {
   const response = await api.post(`/api/users/signin`, credentials);
