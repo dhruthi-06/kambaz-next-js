@@ -35,24 +35,24 @@ body * {
   border-left: 3px solid green !important;
 }
 
-/* === Account Navigation Styling (matches Course Navigation, no bold) === */
+
 #wd-account-navigation .list-group-item {
   border: none !important;
-  color: #dc3545 !important; /* red text */
+  color: #dc3545 !important; 
   background-color: transparent !important;
   border-left: 3px solid transparent !important;
   border-radius: 0 !important;
 }
 
 #wd-account-navigation .list-group-item:hover {
-  background-color: #f8f9fa !important; /* light hover effect */
+  background-color: #f8f9fa !important;
 }
 
 #wd-account-navigation .list-group-item.active {
   background-color: transparent !important;
-  color: #dc3545 !important; /* keep red text */
-  border-left: 3px solid black !important; /* black bar only */
-  font-weight: normal !important; /* no bold */
+  color: #dc3545 !important; 
+  border-left: 3px solid black !important; 
+  font-weight: normal !important; 
 }
 
 #wdb-navigation {

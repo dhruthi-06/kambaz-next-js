@@ -42,20 +42,22 @@ export default function Modules() {
   };
 
   // DELETE MODULE
-  const onRemoveModule = async (moduleId: string) => {
-    await client.deleteModule(moduleId);
-    dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
-  };
+const onRemoveModule = async (moduleId: string) => {
+  await client.deleteModule(cid as string, moduleId);
+  dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
+};
 
-  // UPDATE MODULE
-  const onUpdateModule = async (module: any) => {
-    await client.updateModule(module);
-    dispatch(
-      setModules(
-        modules.map((m: any) => (m._id === module._id ? module : m))
+// UPDATE MODULE
+const onUpdateModule = async (module: any) => {
+  await client.updateModule(cid as string, module);
+  dispatch(
+    setModules(
+      modules.map((m: any) =>
+        m._id === module._id ? module : m
       )
-    );
-  };
+    )
+  );
+};
 
   return (
     <div>
@@ -99,6 +101,7 @@ export default function Modules() {
               </div>
 
               <ModuleControlButtons
+                cid={cid as string}
                 moduleId={module._id}
                 deleteModule={onRemoveModule}
                 editModule={() => dispatch(editModule(module._id))}
