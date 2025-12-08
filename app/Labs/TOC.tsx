@@ -83,15 +83,11 @@ export default function TOC() {
       </NavItem>
 
       <NavItem>
-        <NavLink href="https://github.com/">My GitHub</NavLink>
+        <NavLink href="">My GitHub</NavLink>
       </NavItem>
 
        <NavItem>
-        <NavLink href="https://github.com/dhruthi-06/kambaz-node-server-app">Backend Repository</NavLink>
-      </NavItem>
-
-       <NavItem>
-        <NavLink href="https://kambaz-node-server-app-pwga.onrender.com">Backend Deployed App</NavLink>
+        <NavLink href="">Backend Repository</NavLink>
       </NavItem>
     </Nav>
   );

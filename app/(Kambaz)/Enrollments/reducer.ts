@@ -2,8 +2,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Enrollment {
-  user: string;
-  course: string;
+  user?: string;
+  course?: string;
 }
 
 interface EnrollmentsState {
@@ -11,41 +11,39 @@ interface EnrollmentsState {
 }
 
 const initialState: EnrollmentsState = {
-  enrollments: [],
+  enrollments: [], // Do NOT load from db
 };
 
 const enrollmentsSlice = createSlice({
   name: "enrollments",
   initialState,
   reducers: {
-    // Replace entire list (comes from server)
-    setEnrollments: (state, action: PayloadAction<Enrollment[]>) => {
-      state.enrollments = action.payload;
-    },
+    enroll: (state, action: PayloadAction<Enrollment>) => {
+      const user = action.payload.user?.toString() ?? "";
+      const course = action.payload.course?.toString() ?? "";
 
-    // Add only if not already enrolled
-    addEnrollment: (state, action: PayloadAction<Enrollment>) => {
+      // ignore invalid payloads
+      if (!user || !course) return;
+
       const exists = state.enrollments.some(
-        (e) =>
-          e.user === action.payload.user &&
-          e.course === action.payload.course
+        (e) => e.user === user && e.course === course
       );
       if (!exists) {
-        state.enrollments.push(action.payload);
+        state.enrollments.push({ user, course });
       }
     },
+    unenroll: (state, action: PayloadAction<Enrollment>) => {
+      const user = action.payload.user?.toString() ?? "";
+      const course = action.payload.course?.toString() ?? "";
 
-    // Remove by user + course
-    removeEnrollment: (state, action: PayloadAction<Enrollment>) => {
+      if (!user || !course) return;
+
       state.enrollments = state.enrollments.filter(
-        (e) =>
-          !(e.user === action.payload.user && e.course === action.payload.course)
+        (e) => !(e.user === user && e.course === course)
       );
     },
   },
 });
 
-export const { setEnrollments, addEnrollment, removeEnrollment } =
-  enrollmentsSlice.actions;
-
+export const { enroll, unenroll } = enrollmentsSlice.actions;
 export default enrollmentsSlice.reducer;

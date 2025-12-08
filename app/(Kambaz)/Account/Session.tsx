@@ -25,7 +25,6 @@ export default function Session({ children }: { children: any }) {
     fetchProfile();
   }, []);
 
-  if (pending) return null;   // Wait until check is done
-
+  if (pending) return null;   
   return children;
 }

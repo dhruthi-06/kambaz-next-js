@@ -40,6 +40,12 @@ export const fetchTodos = async () => {
   return response.data;
 };
 
+// NEW — GET COMPLETED TODOS
+export const fetchCompletedTodos = async () => {
+  const response = await axios.get(`${TODOS_API}/completed`);
+  return response.data;
+};
+
 // OLD REMOVE (GET /delete)
 export const removeTodo = async (todo: any) => {
   const response = await axios.get(`${TODOS_API}/${todo.id}/delete`);

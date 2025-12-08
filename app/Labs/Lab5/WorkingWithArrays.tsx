@@ -25,7 +25,6 @@ export default function WorkingWithArrays() {
       </a>
       <hr />
 
-  
       <h3>Retrieving an Item from an Array by ID</h3>
 
       <a
@@ -44,7 +43,6 @@ export default function WorkingWithArrays() {
       />
       <hr />
 
-     
       <h3>Deleting from an Array</h3>
 
       <a
@@ -62,7 +60,6 @@ export default function WorkingWithArrays() {
       />
       <hr />
 
-      
       <h3>Updating Title</h3>
 
       <a
@@ -89,10 +86,8 @@ export default function WorkingWithArrays() {
       <br />
       <hr />
 
-      
       <h3>Updating Description & Completed</h3>
 
-    
       <a
         id="wd-update-todo-completed"
         className="btn btn-warning float-end ms-2"
@@ -101,7 +96,6 @@ export default function WorkingWithArrays() {
         Update Completed
       </a>
 
-    
       <a
         id="wd-update-todo-description"
         className="btn btn-secondary float-end"
@@ -110,21 +104,18 @@ export default function WorkingWithArrays() {
         Update Description
       </a>
 
-  
       <FormControl
         className="w-25 float-start me-2"
         defaultValue={todo.id}
         onChange={(e) => setTodo({ ...todo, id: e.target.value })}
       />
 
-   
       <FormControl
         className="w-50 float-start me-2"
         defaultValue={todo.description}
         onChange={(e) => setTodo({ ...todo, description: e.target.value })}
       />
 
- 
       <div className="form-check float-start mt-2">
         <input
           id="wd-todo-completed"
@@ -140,6 +131,45 @@ export default function WorkingWithArrays() {
 
       <br />
       <br />
+      <hr />
+
+      {/** -------------------------------------------------------------- */}
+      {/** NEW REQUIREMENTS: POST + COMPLETED TODOS                      */}
+      {/** -------------------------------------------------------------- */}
+
+    
+
+      <a
+        id="wd-create-todo-post"
+        className="btn btn-success me-3"
+        href={`${API}`} // Browser will still hit the POST override tool
+        onClick={(e) => {
+          // prevent navigation
+          e.preventDefault();
+          fetch(`${API}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: "New Todo",
+              description: "",
+              completed: false,
+            }),
+          }).then(() => alert("Created new todo using POST!"));
+        }}
+      >
+        Create New Todo (POST)
+      </a>
+
+      <hr />
+
+      <a
+        id="wd-get-completed-todos"
+        className="btn btn-info"
+        href={`${API}/completed`}
+      >
+        Get Completed Todos
+      </a>
+
       <hr />
     </div>
   );

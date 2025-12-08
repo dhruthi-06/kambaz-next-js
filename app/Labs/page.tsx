@@ -15,7 +15,7 @@ export default function LabsPage() {
       <p>
         <a
           id="wd-github"
-          href="https://github.com/dhruthi-06/kambaz-next-js"
+          href=""
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -7,8 +7,27 @@
     "endDate": "2023-05-15",
     "department": "D123",
     "credits": 4,
-    "description": "This course provides an in-depth study of the fundamentals of rocket propulsion, covering topics such as propulsion theory, engine types, fuel chemistry, and the practical applications of rocket technology. Designed for students with a strong background in physics and engineering, the course includes both theoretical instruction and hands-on laboratory work",
-    "image": "/images/rp.png"
+    "description": "This course provides an in-depth study of the fundamentals of rocket propulsion, covering topics such as propulsion theory, engine types, fuel chemistry, and the practical applications of rocket technology.",
+    "image": "/images/rp.png",
+    "modules": [
+      {
+        "_id": "RS101-M1",
+        "name": "Introduction to Propulsion",
+        "description": "Overview of propulsion systems and history",
+        "lessons": [
+          { "_id": "RS101-L1", "name": "History of Rocketry", "description": "" },
+          { "_id": "RS101-L2", "name": "Basic Thrust Principles", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS101-M2",
+        "name": "Rocket Fuel Systems",
+        "description": "Solid vs liquid propulsion",
+        "lessons": [
+          { "_id": "RS101-L3", "name": "Fuel Types", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS102",
@@ -19,7 +38,25 @@
     "department": "D123",
     "credits": 3,
     "description": "This course offers a comprehensive exploration of aerodynamics...",
-    "image": "/images/aero.jpg"
+    "image": "/images/aero.jpg",
+    "modules": [
+      {
+        "_id": "RS102-M1",
+        "name": "Airflow Principles",
+        "description": "Study of fluid behavior around objects",
+        "lessons": [
+          { "_id": "RS102-L1", "name": "Laminar and Turbulent Flow", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS102-M2",
+        "name": "Aircraft Aerodynamics",
+        "description": "Lift, drag, stability and control",
+        "lessons": [
+          { "_id": "RS102-L2", "name": "Wing Design", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS103",
@@ -30,7 +67,25 @@
     "department": "D123",
     "credits": 4,
     "description": "This course delves into the principles and practices of spacecraft design...",
-    "image": "/images/spacecraft.jpg"
+    "image": "/images/spacecraft.jpg",
+    "modules": [
+      {
+        "_id": "RS103-M1",
+        "name": "Orbital Mechanics",
+        "description": "Spacecraft motion and physics",
+        "lessons": [
+          { "_id": "RS103-L1", "name": "Kepler’s Laws", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS103-M2",
+        "name": "Structural Design",
+        "description": "Spacecraft materials and build",
+        "lessons": [
+          { "_id": "RS103-L2", "name": "Lightweight Materials", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS104",
@@ -41,7 +96,25 @@
     "department": "D134",
     "credits": 3,
     "description": "Organic Chemistry is an in-depth course...",
-    "image": "/images/ec.jpg"
+    "image": "/images/ec.jpg",
+    "modules": [
+      {
+        "_id": "RS104-M1",
+        "name": "Hydrocarbons",
+        "description": "Alkanes, alkenes, alkynes",
+        "lessons": [
+          { "_id": "RS104-L1", "name": "Functional Groups", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS104-M2",
+        "name": "Reactions",
+        "description": "Acid-base reactions & mechanisms",
+        "lessons": [
+          { "_id": "RS104-L2", "name": "Synthesis Basics", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS105",
@@ -52,7 +125,25 @@
     "department": "D134",
     "credits": 3,
     "description": "Inorganic Chemistry focuses on the properties...",
-    "image": "/images/in.jpg"
+    "image": "/images/in.jpg",
+    "modules": [
+      {
+        "_id": "RS105-M1",
+        "name": "Atomic Structure",
+        "description": "Electron configuration and bonding",
+        "lessons": [
+          { "_id": "RS105-L1", "name": "Orbitals", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS105-M2",
+        "name": "Periodic Trends",
+        "description": "Trends in the periodic table",
+        "lessons": [
+          { "_id": "RS105-L2", "name": "Electronegativity", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS106",
@@ -63,7 +154,25 @@
     "department": "D134",
     "credits": 3,
     "description": "Physical Chemistry merges the principles of physics and chemistry...",
-    "image": "/images/phy.jpeg"
+    "image": "/images/phy.jpeg",
+    "modules": [
+      {
+        "_id": "RS106-M1",
+        "name": "Thermodynamics",
+        "description": "Heat & energy transfer in reactions",
+        "lessons": [
+          { "_id": "RS106-L1", "name": "Laws of Thermodynamics", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS106-M2",
+        "name": "Quantum Chemistry",
+        "description": "Wave mechanics and atomic behavior",
+        "lessons": [
+          { "_id": "RS106-L2", "name": "Quantum States", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS107",
@@ -75,7 +184,25 @@
     "credits": 3,
     "description": "This course offers an exploration of the ancient languages...",
     "author": "654f9ec2ea7ead465908d1e3",
-    "image": "/images/lang.jpg"
+    "image": "/images/lang.jpg",
+    "modules": [
+      {
+        "_id": "RS107-M1",
+        "name": "Elvish Linguistics",
+        "description": "Study of Quenya and Sindarin",
+        "lessons": [
+          { "_id": "RS107-L1", "name": "Elvish Alphabet", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS107-M2",
+        "name": "Dwarvish Scripts",
+        "description": "Runes and inscriptions",
+        "lessons": [
+          { "_id": "RS107-L2", "name": "Khuzdul Writing", "description": "" }
+        ]
+      }
+    ]
   },
   {
     "_id": "RS108",
@@ -87,6 +214,24 @@
     "credits": 4,
     "description": "This course explores the complex relationships...",
     "author": "654f9ec2ea7ead465908d1e3",
-    "image": "/images/wizards.png"
+    "image": "/images/wizards.png",
+    "modules": [
+      {
+        "_id": "RS108-M1",
+        "name": "Cultural Politics",
+        "description": "Interaction among races of Middle-earth",
+        "lessons": [
+          { "_id": "RS108-L1", "name": "Elves vs Men", "description": "" }
+        ]
+      },
+      {
+        "_id": "RS108-M2",
+        "name": "Diplomatic Strategy",
+        "description": "War alliances and treaties",
+        "lessons": [
+          { "_id": "RS108-L2", "name": "Last Alliance War", "description": "" }
+        ]
+      }
+    ]
   }
 ]
