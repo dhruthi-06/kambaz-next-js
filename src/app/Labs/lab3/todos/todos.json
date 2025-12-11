@@ -1,0 +1,5 @@
+[
+    {"title": "Buy Milk", "status": "CANCELLED", "done": true},
+    {"title": "Feed the pets", "status": "IN PROGRESS", "done": false},
+    {"title": "Walk the dog", "status": "DEFERRED", "done": false}
+]
